@@ -13,7 +13,9 @@ class BooksController < ApplicationController
     end
   end
   def index
-    @books = Book.all
+    @user = User.find(params[:user_id])
+    @books = @user.books
+    @book = Book.new
   end
 
   def show
