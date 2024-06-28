@@ -13,14 +13,21 @@ class BooksController < ApplicationController
     end
   end
   def index
-    @user = User.find(params[:user_id])
-    @books = @user.books
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+      @books = @user.books
+      @profile_image = @user.get_profile_image.variant(resize: "100x100") if @user.get_profile_image.attached?
+    else
+      @books = Book.all
+    end
     @book = Book.new
   end
 
   def show
     @book = Book.find(params[:id])
   end
+
+
   private
 
   def book_params

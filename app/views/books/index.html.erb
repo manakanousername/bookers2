@@ -1,8 +1,30 @@
-<h1>Books#index</h1>
-<p>Find me in app/views/books/index.html.erb</p>
 <div>
-  <h1>User info</h1>
-  <%= image_tag @user.get_profile_image %>
-  <h4>name  <%= @user.name %></h4>
-  <h4>introduction<%= @user.introduction %></h4>
+  <h2>User info</h1>
+      <% if current_user %>
+      <%= image_tag @post_image.user.get_profile_image(100,100) %>
+      <h4>name <%= @user.name %></h4>
+      <h4>introduction <%= @user.introduction %></h4>
+      <%= link_to "edit", edit_user_path(@user) %>
+    <% else %>
+      <p>No user found.</p>
+    <% end %>
+</div>
+<% if @user.present? %>
+  <div>
+    <h1>User info</h1>
+    <%= image_tag @user.get_profile_image %>
+    <h4>name  <%= @user.name %></h4>
+    <h4>introduction<%= @user.introduction %></h4>
+    <%= link_to  "edit", edit_user_path(@user) %>
+  </div>
+<% end %>
+<div>
+  <h2>New book</h2>
+  <%= form_with model: @book do |f| %>
+    <p>titile</p>
+    <%= f.text_field :title %>
+    <p>option</p>
+    <%= f.text_area :body %>
+    <%= f.submit 'Create Book' %>
+  <% end %>
 </div>
